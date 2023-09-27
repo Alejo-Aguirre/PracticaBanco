@@ -50,7 +50,7 @@ public class PrincipalServidor {
 
         for(int i=0;i<ListaUsuarios.size() && encontrado==false;i++)
         {
-            if (ListaUsuarios.get(i).getLogin().equals(login) && ListaUsuarios.get(i).getClave().equals(clave))
+            if (ListaUsuarios.get(i).getLogin().equalsIgnoreCase(login) && ListaUsuarios.get(i).getClave().equals(clave))
             {
                 encontrado =true;
             }
