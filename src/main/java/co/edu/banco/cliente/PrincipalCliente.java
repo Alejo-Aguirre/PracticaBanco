@@ -1,6 +1,13 @@
 package co.edu.banco.cliente;
 
+import co.edu.banco.servidor.ClienteCuenta;
+import co.edu.banco.servidor.Cuenta;
+import co.edu.banco.servidor.Usuario;
+
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 public class PrincipalCliente {
@@ -9,7 +16,7 @@ public class PrincipalCliente {
 
     public static void main(String args[]) throws Exception {
         PrincipalCliente pc = new PrincipalCliente();
-        pc.iniciarSesion();
+        pc.mostrarMenuInicio();
     }
 
     public PrincipalCliente() throws Exception {
@@ -18,14 +25,88 @@ public class PrincipalCliente {
         logueado = false;
     }
 
+    public void mostrarMenuInicio() throws IOException {
+        int opcionInicio;
+        do {
+            opcionInicio = Integer.parseInt(JOptionPane.showInputDialog("BIENVENIDO AL BANCO\n\n"
+                    + "1. Iniciar Sesión\n"
+                    + "2. Crear Cliente\n"
+                    + "3. Salir"));
+
+            switch (opcionInicio) {
+                case 1:
+                    iniciarSesion();
+                    break;
+                case 2:
+                    crearCuenta();
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(null, "Saliendo de la aplicación");
+                    cliente.getClientSideSocket().close();
+                    System.exit(0);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción Incorrecta");
+                    break;
+            }
+        } while (opcionInicio != 3);
+    }
+
+
+    /**
+     * iteracion 1 apertura de la cuenta
+     */
+    public void  crearCuenta() {
+
+        String log, cla;
+        String numeroCuenta,cedula,nombreCompleto;
+        Date fechaApertura = new Date();
+        double saldo;
+
+        cedula = JOptionPane.showInputDialog("Ingrese su cedula: ");
+        nombreCompleto = JOptionPane.showInputDialog("Ingrese su nombre: ");
+        saldo = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el saldo con el que desea abrir la cuenta: "));
+        log = JOptionPane.showInputDialog("Ingrese su Login: ");
+        cla = JOptionPane.showInputDialog("Ingrese su clave: ");
+
+        numeroCuenta = generarNumeroDeCuentaUnico();
+
+        // Obtener la fecha actual de creación
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechaAperturaStr = sdf.format(fechaApertura);
+
+        Usuario usuario = new Usuario(log,cla);
+        ClienteCuenta clienteCuenta = new ClienteCuenta(cedula,nombreCompleto);
+        Cuenta cuenta = new Cuenta(numeroCuenta,fechaAperturaStr,saldo,clienteCuenta);
+
+        System.out.println(cuenta);
+
+        // Formatear los datos de la cuenta, usuario y clienteCuenta para enviar al servidor
+        String datosCuentaUsuarioCliente = "CREAR_CUENTA;" + // Indicar la solicitud de creación de cuenta, usuario y clienteCuenta
+                usuario.getLogin() + ";" + usuario.getClave() + ";" +
+                cuenta.getNumero() + ";" + cuenta.getFechaApertura() + ";" + cuenta.getSaldo() + ";" +
+                clienteCuenta.getCedula() + ";" + clienteCuenta.getCedula();
+
+        // Enviar los datos al servidor
+        try {
+            cliente.enviarMensaje(datosCuentaUsuarioCliente);
+            String respuesta = cliente.leerMensaje();
+            // Manejar la respuesta del servidor según tus necesidades
+            JOptionPane.showMessageDialog(null, respuesta);
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al enviar los datos al servidor: " + e.getMessage());
+        }
+
+    }
+
     public void iniciarSesion() throws IOException {
         String log, cla;
         String respuesta;
-
         do {
             log = JOptionPane.showInputDialog("Ingrese su Login: ");
             cla = JOptionPane.showInputDialog("Ingrese su clave: ");
-            cliente.enviarMensaje("1;" + log + ";" + cla);
+            cliente.enviarMensaje("login;" + log + ";" + cla);
             respuesta = cliente.leerMensaje();
             if (respuesta.equals("ok")) {
                 logueado = true;
@@ -44,7 +125,7 @@ public class PrincipalCliente {
         String dinero;
 
         do {
-            opc = Integer.parseInt(JOptionPane.showInputDialog("BANCO LOS DESALMADOS \n\n"
+            opc = Integer.parseInt(JOptionPane.showInputDialog("BANCO  \n\n"
                     + "1. Consultar saldo \n"
                     + "2. Consignar dinero \n"
                     + "3. Retirar efectivo \n"
@@ -126,5 +207,16 @@ public class PrincipalCliente {
             }
 
         } while (opc != 5);
+    }
+
+    private String generarNumeroDeCuentaUnico() {
+        Random random = new Random();
+        StringBuilder numeroCuentaBuilder = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            numeroCuentaBuilder.append(random.nextInt(10));
+        }
+        String numeroCuenta = numeroCuentaBuilder.toString();
+        // Aquí puedes agregar lógica adicional para asegurarte de que el número sea único si es necesario
+        return numeroCuenta;
     }
 }

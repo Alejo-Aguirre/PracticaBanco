@@ -25,9 +25,9 @@ public class PrincipalServidor {
         ListaUsuarios.add(new Usuario("Jose", "1357"));
 
         ListaClientesCuenta = new ArrayList();
-        ListaClientesCuenta.add(new ClienteCuenta("12345","Pepito Perez"));
-        ListaClientesCuenta.add(new ClienteCuenta("77777","Martha Gomez"));
-        ListaClientesCuenta.add(new ClienteCuenta("99999","Juan Lopez"));
+        ListaClientesCuenta.add(new ClienteCuenta("12345","Maria Perez"));
+        ListaClientesCuenta.add(new ClienteCuenta("5679","Cucho Gomez"));
+        ListaClientesCuenta.add(new ClienteCuenta("2468","ana Lopez"));
 
         ListaCuentas = new ArrayList();
         ListaCuentas.add(new Cuenta("11111","04/03/2023", 50000.00,ListaClientesCuenta.get(0)));
@@ -39,8 +39,9 @@ public class PrincipalServidor {
 
     public void menu() throws Exception
     {
-        JOptionPane.showMessageDialog(null, "En construcción. No acose!!!");
+        //JOptionPane.showMessageDialog(null, "En construcción. No acose!!!");
 
+        System.out.println(ListaCuentas+"\n");
         server.init();
     }
 
@@ -88,4 +89,30 @@ public class PrincipalServidor {
         }
         return res;
     }
+
+    /**
+     * creacion y apertura de la cuenta
+     * @param login,clave,numeroCuenta,fechaApertura,saldoInicial,cedulaCliente,nombreCliente
+     * @return
+     */
+    public String crearCuenta(String login, String clave, String numeroCuenta, String fechaApertura, double saldoInicial, String cedulaCliente, String nombreCliente) {
+
+        Usuario usuario = new Usuario(login,clave);
+        // Crear el objeto ClienteCuenta
+        ClienteCuenta clienteCuenta = new ClienteCuenta(cedulaCliente,nombreCliente);
+
+        // Crear la cuenta
+        Cuenta cuenta = new Cuenta(numeroCuenta, fechaApertura, saldoInicial, clienteCuenta);
+
+        // Agregar la cuenta a la lista de cuentas
+        ListaCuentas.add(cuenta);
+        ListaClientesCuenta.add(clienteCuenta);
+        ListaUsuarios.add(usuario);
+
+        //JOptionPane.showMessageDialog(null,"numero de cuenta : "+ cuenta.getNumero()+" saldo"+ cuenta.getSaldo());
+
+        return "Cuenta creada exitosamente.";
+    }
+
+
 }

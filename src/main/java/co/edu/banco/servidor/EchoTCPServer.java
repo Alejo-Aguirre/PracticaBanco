@@ -45,17 +45,17 @@ public class EchoTCPServer {
 
         switch (resul[0])
         {
-            case "1": log = resul[1];
+            case "login": log = resul[1];
                 cla = resul[2];
                 if (serv.buscarUsuario(log,cla)==true)
                     respuesta = "ok";
                 break;
 
 
-            case "2": respuesta= serv.buscarCuenta(resul[1]);
+            case "1": respuesta= serv.buscarCuenta(resul[1]);
                 break;
 
-            case "3": respuesta= serv.buscarCuenta(resul[1]);
+            case "2": respuesta= serv.buscarCuenta(resul[1]);
                 if (respuesta!="")
                 {
                     String cuen[] = respuesta.split(";");
@@ -68,7 +68,7 @@ public class EchoTCPServer {
                 }
                 break;
 
-            case "4": respuesta= serv.buscarCuenta(resul[1]);
+            case "3": respuesta= serv.buscarCuenta(resul[1]);
                 if (respuesta!="")
                 {
                     String cuen[] = respuesta.split(";");
@@ -81,7 +81,7 @@ public class EchoTCPServer {
                 }
                 break;
 
-            case "5": respuesta= serv.buscarCuenta(resul[1]);
+            case "4": respuesta= serv.buscarCuenta(resul[1]);
                 respuesta1 = serv.buscarCuenta(resul[2]);
                 if (respuesta!="" && respuesta1!="")
                 {
@@ -102,6 +102,17 @@ public class EchoTCPServer {
                 }
                 break;
 
+            case "CREAR_CUENTA":
+                // Crear una nueva cuenta en el servidor
+                String login = resul[1];
+                String clave = resul[2];
+                String numeroCuenta = resul[3];
+                String fechaApertura = resul[4];
+                double saldoInicial = Double.parseDouble(resul[5]);
+                String cedulaCliente = resul[6];
+                String nombreCliente = resul[7];
+                respuesta = serv.crearCuenta(login, clave, numeroCuenta, fechaApertura, saldoInicial, cedulaCliente, nombreCliente);
+                break;
         }
         return respuesta;
     }

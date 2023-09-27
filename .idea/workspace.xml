@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35f52037-ff50-4866-b1e6-9845892bb391" name="Changes" comment="">
+    <list default="true" id="35f52037-ff50-4866-b1e6-9845892bb391" name="Changes" comment="login con mayuscula y minuscula y como principal para poder navegar en el menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/banco/cliente/PrincipalCliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/banco/cliente/PrincipalCliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/banco/servidor/EchoTCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/banco/servidor/EchoTCPServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/banco/servidor/PrincipalServidor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/banco/servidor/PrincipalServidor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +55,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.PrincipalCliente">
+  <component name="RunManager" selected="Application.PrincipalServidor">
     <configuration name="PrincipalCliente" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="co.edu.banco.cliente.PrincipalCliente" />
       <module name="bancoI" />
@@ -82,8 +84,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.PrincipalCliente" />
         <item itemvalue="Application.PrincipalServidor" />
+        <item itemvalue="Application.PrincipalCliente" />
       </list>
     </recent_temporary>
   </component>
@@ -96,11 +98,23 @@
       <option name="presentableId" value="Default" />
       <updated>1695587228113</updated>
       <workItem from="1695587229380" duration="2310000" />
-      <workItem from="1695842115964" duration="1368000" />
+      <workItem from="1695842115964" duration="10294000" />
     </task>
+    <task id="LOCAL-00001" summary="login con mayuscula y minuscula y como principal para poder navegar en el menu">
+      <created>1695843644433</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695843644433</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="login con mayuscula y minuscula y como principal para poder navegar en el menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="login con mayuscula y minuscula y como principal para poder navegar en el menu" />
   </component>
 </project>
