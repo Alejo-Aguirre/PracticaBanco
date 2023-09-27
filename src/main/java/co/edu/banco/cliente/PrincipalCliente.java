@@ -1,4 +1,4 @@
-package co.edu.banco.model;
+package co.edu.banco.cliente;
 
 import java.io.IOException;
 import javax.swing.JOptionPane;
